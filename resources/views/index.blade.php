@@ -33,7 +33,7 @@
             <p class="ml-2">Likes</p>  
         </div>
         <div class="d-flex">
-            <button type="button" class="btn btn-light commentBtn">
+            <button type="button" class="btn btn-light commentBtn" id={{$post->id}}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                 </svg>
@@ -65,25 +65,28 @@
         @endif
         
     </div>
-    <div class="input-group mb-3">
-        <input type="text" name="comment" class="form-control" placeholder="Write Your Comment" aria-label="Comment" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-            <button id={{$post->id}} class="btn btn-outline-secondary postComment" type="button">Posts</button>
+    <div class="toogleCommentSection" id="toogleCommentSection-{{$post->id}}">
+        <div class="input-group mb-3">
+            <input type="text" name="comment" class="form-control" placeholder="Write Your Comment" aria-label="Comment" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button id={{$post->id}} class="btn btn-outline-secondary postComment" type="button">Posts</button>
+            </div>
+        </div>
+        <button class="btn btn-primary viewAllComment" type="submit" id="{{$post->id}}">
+            View All Comments 
+        </button>
+        <div class="commentContainer" id="viewComment-{{$post->id}}">
+            @foreach($comments_All as $comments)    
+                @if($post->id == $comments->posts_id)
+                    <div class="bg-white p-2 border-bottom commentSection" id="comment-{{$comments->id}}">
+                        <span class="commentName">{{$comments->name}}</span>
+                        <label>{{$comments->created_at}}</label>
+                        <p class="font-weight-bold">{{$comments->users->name}}</p>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
-    <p>View All Comments</p>
-
-
-    @foreach($comments_All as $comments)    
-        @if($post->id == $comments->posts_id)
-            <div class="bg-white p-2 border-bottom commentSection" id="comment-{{$comments->id}}">
-                <span class="commentName">{{$comments->name}}</span>
-                <label>{{$comments->created_at}}</label>
-                <p class="font-weight-bold">{{$comments->users->name}}</p>
-            </div>
-        @endif
-    @endforeach
-
 </div> 
 
 <!-- Edit Content Modal -->

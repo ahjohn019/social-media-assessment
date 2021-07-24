@@ -5,6 +5,11 @@ $(document).ready(function() {
     let comments;
     const authCookie = checkAuth <=1 ? null : dc.split('; ').find(row => row.startsWith(prefix)).split('=')[1];
 
+    //Hide The Comment Section
+    $('.commentContainer').hide();
+    $('.toogleCommentSection').hide();
+
+    //Post the posts content
     $('.postBtn').click(function(event){
         event.preventDefault();
         let postTitle = $("input[name=postTitle]").val();
@@ -34,6 +39,32 @@ $(document).ready(function() {
         })
     });
 
+    //View All Comment
+    $('.viewAllComment').click(function(event){
+        let getViewAll = $(this).attr("id")
+        let getViewAllContainer = document.getElementById("viewComment-"+getViewAll)
+
+        if (getViewAllContainer.style.display === "none") {
+            getViewAllContainer.style.display = "block";
+        } else {
+            getViewAllContainer.style.display = "none";
+        }
+    })
+
+    //Toogle Comment Button
+    $('.commentBtn').click(function(event) {
+        let toggleCommentId = $(this).attr("id")
+        let toggleCommentSection = document.getElementById("toogleCommentSection-"+toggleCommentId)
+
+        if (toggleCommentSection.style.display === "none") {
+            toggleCommentSection.style.display = "block";
+        } else {
+            toggleCommentSection.style.display = "none";
+        }
+    });
+
+
+    //register User
     $('.regBtn').click(function(event) {
         event.preventDefault();
         let email = $("input[name=email]").val();
